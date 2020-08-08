@@ -1,8 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router();
+
 let app = express();
-
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(router);
 
 router.get('/message', function(req,res){
@@ -15,8 +17,11 @@ router.post('/message', function(req,res){
     
 });
 
+
 router.delete('/message', function(req,res){
-    res.send('Mensaje eliminado');
+    console.log(req.body);
+    console.log(req.query);
+    res.send('Mensaje '+ req.body.text + ' eliminado');
     
 });
 
