@@ -17,7 +17,12 @@ router.get('/message', function(req,res){
 });
 
 router.post('/message', function(req,res){
-    res.send('Mensaje añadido');
+    console.log(req.body);
+    console.log(req.query);   
+    res.status(201).send({
+        error:'',
+        body: 'Creado correctamente'
+    });
     
 });
 
@@ -25,7 +30,7 @@ router.post('/message', function(req,res){
 router.delete('/message', function(req,res){
     console.log(req.body);
     console.log(req.query)
-    res.send('Mensaje '+ req.body.text + ' eliminado');
+    res.status(201).send('Mensaje '+ req.body.text + ' eliminado');
     
 });
 
