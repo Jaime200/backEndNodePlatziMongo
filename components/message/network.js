@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const response = require('../../network/response')
-
+const controller = require('./controller');
 router.get('/', function(req,res){
     console.log(res.header);
     res.header({
@@ -13,14 +13,15 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function(req,res){
-    console.log(req.body);
-    console.log(req.query);   
-    if(req.query.error == "ok"){
-        response.error(req, res,'Error inesperado',500,'Es solo una simulacion de los errores');
-    }else{
-    // res.status(201).send({error:'', body: 'Creado correctamente' });
-    response.success(req, res,'Creado correctamente',201);
-    }
+    let body = req.body;    
+    controller.addMessage(body.user, body.message)
+              .then((fullMessage)=>{
+                response.success(req, res,fullMessage,201);                
+              })
+              .catch( err =>{
+                response.error(req, res,'Informacion invalida',400,err);
+              });
+
     
 });
 
