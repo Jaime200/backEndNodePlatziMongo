@@ -15,6 +15,11 @@ router.post('/message', function(req,res){
     
 });
 
+router.delete('/message', function(req,res){
+    res.send('Mensaje eliminado');
+    
+});
+
 
 
 // app.use('/',function(req,res){
