@@ -30,6 +30,9 @@ router.post('/message', function(req,res){
 });
 
 
+app.use('/app',express.static('public'))
+
+
 router.delete('/message', function(req,res){
     console.log(req.body);
     console.log(req.query)
