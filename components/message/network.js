@@ -12,7 +12,7 @@ router.get('/', function(req,res){
                 })
               .catch(
                   err =>{
-                response.error(req,res,'Unexpected Error', 500, e);      
+                response.error(req,res,'Unexpected Error', 500, err);      
                 });
     
     
