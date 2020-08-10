@@ -23,11 +23,26 @@ console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage '
     
 }
 
-function getMessages(){
+function getMessages(filterUser){
     console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage ')}]`    );    
     return new Promise( (resolve, reject)=>{
-        resolve(store.list())
+
+        resolve(store.list(filterUser))
     });
+}
+
+
+function updateMessage(id, message){
+    return new Promise(async (resolve, reject)=>{
+        
+
+        if(!id || !message){ 
+            reject('Invale data')
+            return false
+        }
+        const result = await store.updateText(id, message);
+        resolve(result);
+    })
 }
 
 
@@ -35,5 +50,6 @@ function getMessages(){
 
 module.exports = {
     addMessage,
-    getMessages
+    getMessages,
+    updateMessage
 }

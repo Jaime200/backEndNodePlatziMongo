@@ -3,8 +3,10 @@ const router = express.Router();
 const response = require('../../network/response')
 const controller = require('./controller');
 router.get('/', function(req,res){
-   
-    controller.getMessages()
+  
+  const filterUser = req.query.user || null;
+  
+    controller.getMessages(filterUser)
               .then( (messageList) =>{
                 response.success(req, res,messageList, 200);
                 })
@@ -35,5 +37,19 @@ router.delete('/', function(req,res){
     res.status(201).send('Mensaje '+ req.body.text + ' eliminado');
     
 });
+
+router.patch('/:id', function(req, res){
+  let id = req.params.id;
+  let message = req.body.message;
+  controller.updateMessage(id, message)
+            .then((data)=>{
+              response.success(req, res, data, 200);
+            } )
+            .catch((err)=>{
+              response.error(req,res, 'Error interno',500, err);
+            });
+  // res.send('Ok');
+
+})
 
 module.exports = router
