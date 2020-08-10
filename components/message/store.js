@@ -8,12 +8,19 @@ function addMessage(message){
 }
 
 async function getMessage(filterUser){
-    let filter = {}
-    if(filterUser !== null)
-    filter = { user : filterUser }
+    return new Promise ((resolve, reject)=>{
+        let filter = {}
+        if(filterUser !== null)
+        filter = { user : filterUser }
+        
+         Model.find(filter)
+                                .populate('user')
+                                .exec((err,populateData)=>{
+                                    if(err) reject(err);
+                                    else resolve(populateData);
+                                })
+    })
     
-    const messages = await Model.find(filter);
-    return messages;
 }
 
 async function updateText(id, message){
