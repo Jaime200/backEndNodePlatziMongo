@@ -37,7 +37,7 @@ function updateMessage(id, message){
         
 
         if(!id || !message){ 
-            reject('Invale data')
+            reject('Invalid data')
             return false
         }
         const result = await store.updateText(id, message);
@@ -45,11 +45,28 @@ function updateMessage(id, message){
     })
 }
 
+function deleteMessage(id){
+    return new Promise( (resolve, reject)=>{
+        if(!id){
+            reject('Invalid Id');
+            return false;
+        }
 
+        store.remove(id)
+                    .then((result) => {
+                        resolve();
+                    })
+                    .catch((err) =>{
+                        reject(err)
+                    });
+
+    })
+}
 
 
 module.exports = {
     addMessage,
     getMessages,
-    updateMessage
+    updateMessage,
+    deleteMessage
 }

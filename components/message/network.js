@@ -52,4 +52,20 @@ router.patch('/:id', function(req, res){
 
 })
 
+router.delete('/:id', function(req, res){
+  let id = req.params.id;
+  controller.deleteMessage(id)
+            .then(
+              ()=>{
+                response.success(req,res,`Mensaje ${id} eliminado`, 200);
+              }
+            )
+            .catch(
+              (err)=>{
+                response.error(req,res,'Error interno', 500 , err);
+              }
+            )
+})
+
+
 module.exports = router
