@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const store = require('./store');
 const { socket } = require('../../socket')
+const config = require('../../config')
 function addMessage(chat,user, message, file){
 console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage ')}]`    );    
     return new Promise((resolve, reject)=>{
@@ -11,7 +12,7 @@ console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage '
         
         let fileUrl = '';
         if(file){
-            fileUrl=`http://localhost:3000/app/uploads/${file.filename}`;
+            fileUrl=`${config.serverHost}:${config.serverPort}${config.publicRoute}/${config.filesRoute}/${file.filename}`;
         }
 
         const fullMessage = {
