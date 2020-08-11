@@ -4,9 +4,9 @@ const response = require('../../network/response')
 const controller = require('./controller');
 router.get('/', function(req,res){
   
-  const filterUser = req.query.user || null;
+  const filterChat = req.query.chat || null;
   
-    controller.getMessages(filterUser)
+    controller.getMessages(filterChat)
               .then( (messageList) =>{
                 response.success(req, res,messageList, 200);
                 })
@@ -14,13 +14,11 @@ router.get('/', function(req,res){
                   err =>{
                 response.error(req,res,'Unexpected Error', 500, err);      
                 });
-    
-    
 });
 
 router.post('/', function(req,res){
     let body = req.body;    
-    controller.addMessage(body.user, body.message)
+    controller.addMessage(body.chat,body.user, body.message)
               .then((fullMessage)=>{
                 response.success(req, res,fullMessage,201);                
               })

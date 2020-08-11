@@ -1,15 +1,16 @@
 const chalk = require('chalk');
 const store = require('./store');
 
-function addMessage(user, message){
+function addMessage(chat,user, message){
 console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage ')}]`    );    
     return new Promise((resolve, reject)=>{
-        if(!user || !message)  {
+        if(!chat || !user || !message)  {
              reject('Los datos son incorrectos')
              return
         }
         
         const fullMessage = {
+            chat: chat,
             user: user,
             message : message,
             date : new Date()
@@ -23,11 +24,11 @@ console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage '
     
 }
 
-function getMessages(filterUser){
+function getMessages(filterChat){
     console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage ')}]`    );    
     return new Promise( (resolve, reject)=>{
 
-        resolve(store.list(filterUser))
+        resolve(store.list(filterChat))
     });
 }
 
