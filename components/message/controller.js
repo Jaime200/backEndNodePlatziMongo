@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const store = require('./store');
 
-function addMessage(chat,user, message){
+function addMessage(chat,user, message, file){
 console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage ')}]`    );    
     return new Promise((resolve, reject)=>{
         if(!chat || !user || !message)  {
@@ -9,11 +9,17 @@ console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage '
              return
         }
         
+        let fileUrl = '';
+        if(file){
+            fileUrl=`http://localhost:3000/app/uploads/${file.filename}`;
+        }
+
         const fullMessage = {
             chat: chat,
             user: user,
             message : message,
-            date : new Date()
+            date : new Date(),
+            file : fileUrl
         };
         
         store.add(fullMessage);
