@@ -3,6 +3,7 @@ const app = express();
 const server = require('http').Server(app);
 // const socketIO = require('socket.io')(server);
 
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const socket = require('./socket');
 const chalk = require('chalk');
@@ -12,6 +13,7 @@ const router = require('./network/router');
 db('mongodb+srv://jmunozV2:NIUfgdXGxv6mkMzy@notadeventa-mppfw.mongodb.net/chat?retryWrites=true&w=majority')
 
 socket.connect(server);
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 router(app);
