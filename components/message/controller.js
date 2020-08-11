@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const store = require('./store');
-
+const { socket } = require('../../socket')
 function addMessage(chat,user, message, file){
 console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage ')}]`    );    
     return new Promise((resolve, reject)=>{
@@ -23,6 +23,7 @@ console.log(`[ ${chalk.blue('controller Message')} ${chalk.yellow(' addMessage '
         };
         
         store.add(fullMessage);
+        socket.io.emit('message',fullMessage);
         resolve(fullMessage);
     })
 
